@@ -3,18 +3,18 @@ import java.sql.Date;
 public class HistoryPrice {
 	private int id;
 	private int article_id;
-	private Date dateHisto;
+	private Date dateHistory;
 	private int clientId;
 	private double price;
 	public HistoryPrice() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public HistoryPrice(int id, int article_id, Date dateHisto, int clientId,double price) {
+	public HistoryPrice(int id, int article_id, Date dateHistory, int clientId,double price) {
 		super();
 		this.id = id;
 		this.article_id = article_id;
-		this.dateHisto = dateHisto;
+		this.dateHistory = dateHistory;
 		this.clientId = clientId;
 		this.price = price;
 	}
@@ -40,10 +40,10 @@ public class HistoryPrice {
 		this.article_id = article_id;
 	}
 	public Date getDateHisto() {
-		return dateHisto;
+		return dateHistory;
 	}
 	public void setDateHisto(Date dateHisto) {
-		this.dateHisto = dateHisto;
+		this.dateHistory = dateHisto;
 	}
 	public int getClientId() {
 		return clientId;
