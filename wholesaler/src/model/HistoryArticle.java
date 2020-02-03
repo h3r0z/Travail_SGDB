@@ -1,16 +1,16 @@
 package model;
 import java.sql.Date;
-public class HistoryPrice {
+public class HistoryArticle {
 	private int id;
 	private int article_id;
 	private Date dateHistory;
 	private int clientId;
 	private double price;
-	public HistoryPrice() {
+	public HistoryArticle() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public HistoryPrice(int id, int article_id, Date dateHistory, int clientId,double price) {
+	public HistoryArticle(int id, int article_id, Date dateHistory, int clientId,double price) {
 		super();
 		this.id = id;
 		this.article_id = article_id;

@@ -17,7 +17,7 @@ public class ArticleDAO extends DAO<Article>{
 	@Override
 	public boolean create(Article obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" INSERT INTO articles nom VALUES  (" + obj.getNom() + ")");
+			PreparedStatement state = conn.prepareStatement(" INSERT INTO articles VALUES  (" + obj.getName() +","  + obj.isAvailable()+"," + obj.getStock() + ","+  obj.getDescription()+   ")");
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;
 		}
@@ -31,7 +31,7 @@ public class ArticleDAO extends DAO<Article>{
 	@Override
 	public boolean delete(Article obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" DELETE FROM eleve e WHERE e.id = ?");
+			PreparedStatement state = conn.prepareStatement(" DELETE FROM articles a WHERE a.id = ?");
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;
 		}
@@ -44,7 +44,7 @@ public class ArticleDAO extends DAO<Article>{
 	@Override
 	public boolean update(Article obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE eleve SET id = " + obj.getId() + " ,nom = " + obj.getNom() + " ,Prenom = " + obj.getPrenom()  );
+			PreparedStatement state = conn.prepareStatement(" UPDATE articles SET id = " + obj.getId() + " ,name = " + obj.getName() + ",available = " + obj.isAvailable()  +",stock = "  + obj.getStock()+ ", descrption = " + obj.getDescription()  );
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;
 		}
@@ -56,22 +56,22 @@ public class ArticleDAO extends DAO<Article>{
 
 	@Override
 	public Article find(int id) {
-		Eleve eleve = null;
+		Article article = null;
 		try {
 			
-			PreparedStatement state = conn.prepareStatement(" SELECT * FROM Eleve e WHERE e.id = ?");
+			PreparedStatement state = conn.prepareStatement(" SELECT * FROM articles a WHERE a.id = ?");
 			state.setInt(1, id);
 			ResultSet result = state.executeQuery();
 			
 			if(result.first()) {
-				eleve = new Eleve(id, result.getString("nom"), result.getString("prenom"));
+				article = new Article(id, result.getString("name"), result.getBoolean("available"), result.getInt("stock"), result.getString("description"));
 				
 			}
 		} catch (SQLException e) {
-			System.out.println("Probleme de récupération de Eleve avec l ídentifiant :  " + id);
+			System.out.println("Probleme de récupération de article avec l ídentifiant :  " + id);
 		}
-		return eleve;
+		return article;
 	}
-	}
-
 }
+
+

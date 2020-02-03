@@ -4,7 +4,6 @@ package model;
 public class Article {
 	private int id;
 	private String name;
-	private double price;
 	private boolean available;
 	private int stock;
 	private String description;
@@ -31,12 +30,7 @@ public class Article {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
+
 	public boolean isAvailable() {
 		return available;
 	}

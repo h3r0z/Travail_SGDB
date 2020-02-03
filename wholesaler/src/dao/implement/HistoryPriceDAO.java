@@ -2,8 +2,8 @@ package dao.implement;
 import java.sql.Connection;
 
 import dao.DAO;
-import model.HistoryPrice;
-public class HistoryPriceDAO extends DAO<HistoryPrice>{
+import model.HistoryArticle;
+public class HistoryPriceDAO extends DAO<HistoryArticle>{
 
 	public HistoryPriceDAO(Connection conn) {
 		super(conn);
@@ -11,25 +11,25 @@ public class HistoryPriceDAO extends DAO<HistoryPrice>{
 	}
 
 	@Override
-	public boolean create(HistoryPrice obj) {
+	public boolean create(HistoryArticle obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(HistoryPrice obj) {
+	public boolean delete(HistoryArticle obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(HistoryPrice obj) {
+	public boolean update(HistoryArticle obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public HistoryPrice find(int id) {
+	public HistoryArticle find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
