@@ -73,7 +73,7 @@ public class ClientDAO extends DAO<Client>{
 				
 			}
 		} catch (SQLException e) {
-			System.out.println("Probleme de récupération de article avec l ídentifiant :  " + id);
+			System.out.println("Probleme de récupération du client avec l ídentifiant :  " + id);
 		}
 		return client;
 	}
