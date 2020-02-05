@@ -3,11 +3,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 import dao.DAO;
 import model.Article;
 
 public class ArticleDAO extends DAO<Article>{
+
+	private ArrayList<Article> articles;
 
 	public ArticleDAO(Connection conn) {
 		super(conn);
@@ -44,7 +46,8 @@ public class ArticleDAO extends DAO<Article>{
 	@Override
 	public boolean update(Article obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE articles SET id = " + obj.getId() + " ,name = " + obj.getName() + ",available = " + obj.isAvailable()  +",stock = "  + obj.getStock()+ ", descrption = " + obj.getDescription()  );
+			PreparedStatement state = conn.prepareStatement(" UPDATE articles SET id = " + obj.getId() + " ,name = " + obj.getName() + 
+			",available = " + obj.isAvailable()  +",stock = "  + obj.getStock()+ ", description = " + obj.getDescription() + ")"  );
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;
 		}
@@ -72,6 +75,33 @@ public class ArticleDAO extends DAO<Article>{
 		}
 		return article;
 	}
+
+	@Override
+	public ArrayList<Article> findAll() {	
+		Article article = null;
+		try {
+		articles = new ArrayList<Article>();
+		articles =null;
+		PreparedStatement state = conn.prepareStatement(" SELECT * FROM articles");
+		ResultSet result = state.executeQuery();
+		if (result != null) 
+		{
+		  do {
+			  article = new Article(result.getInt("id"), result.getString("name"), result.getBoolean("available"), result.getInt("stock"), result.getString("description"));
+			  articles.add(article);
+		  }while(result.next());
+		}
+		else {
+			System.out.println("Table articles  is empty");
+		}
+	} catch (SQLException e) {
+		System.out.println("Problème avec la récupération de la DB " + e);
+		
+	}
+	return articles;
+	}
+	
+
 }
 
 

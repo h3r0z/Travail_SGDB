@@ -8,11 +8,11 @@ public class Client {
 	private String country;
 	private String zipCode;
 	private String tel;
-	
+	private String city;
 
 	
 	public Client(int id, String lastname, String firstname, String adress, String country, String zipCode,
-			String tel) {
+			String tel,String city) {
 		super();
 		this.id = id;
 		this.lastname = lastname;
@@ -21,7 +21,17 @@ public class Client {
 		this.country = country;
 		this.zipCode = zipCode;
 		this.tel = tel;
+		this.city = city;
 	}
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getAdress() {
 		return adress;
 	}

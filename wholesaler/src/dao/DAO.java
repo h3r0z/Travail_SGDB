@@ -1,9 +1,8 @@
 package dao;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
-
-import sun.awt.image.BadDepthException;
 
 public abstract class DAO<T> {
 	protected Connection conn;
@@ -37,5 +36,6 @@ public abstract class DAO<T> {
 	public abstract boolean update(T obj);
 	
 	public abstract T find(int id);
+	public abstract ArrayList<T> findAll();
 
 }
