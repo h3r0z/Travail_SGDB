@@ -1,5 +1,6 @@
 package dao.implement;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import dao.DAO;
 import model.User;
@@ -30,6 +31,12 @@ public class UserDAO extends DAO<User> {
 
 	@Override
 	public User find(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,5 +1,6 @@
 package dao.implement;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import dao.DAO;
 import model.Vat;
@@ -30,6 +31,12 @@ public class VatDAO extends DAO<Vat>{
 
 	@Override
 	public Vat find(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Vat> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

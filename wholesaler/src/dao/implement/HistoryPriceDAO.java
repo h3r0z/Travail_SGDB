@@ -1,5 +1,6 @@
 package dao.implement;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import dao.DAO;
 import model.HistoryArticle;
@@ -30,6 +31,12 @@ public class HistoryPriceDAO extends DAO<HistoryArticle>{
 
 	@Override
 	public HistoryArticle find(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<HistoryArticle> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

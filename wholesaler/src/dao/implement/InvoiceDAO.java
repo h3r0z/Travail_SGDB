@@ -2,6 +2,7 @@ package dao.implement;
 import model.Invoice;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import dao.DAO;
 
@@ -32,6 +33,12 @@ public class InvoiceDAO extends DAO<Invoice>{
 
 	@Override
 	public Invoice find(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Invoice> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
