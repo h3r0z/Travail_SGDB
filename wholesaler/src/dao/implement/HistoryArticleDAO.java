@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import dao.DAO;
 import model.HistoryArticle;
-public class HistoryPriceDAO extends DAO<HistoryArticle>{
+public class HistoryArticleDAO extends DAO<HistoryArticle>{
 
-	public HistoryPriceDAO(Connection conn) {
+	public HistoryArticleDAO(Connection conn) {
 		super(conn);
 		// TODO Auto-generated constructor stub
 	}
