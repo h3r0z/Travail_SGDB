@@ -1,5 +1,7 @@
 package dao.implement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.DAO;
@@ -9,13 +11,19 @@ public class InventoryArticleDAO extends DAO<InvoiceArticle> {
 
 	public InventoryArticleDAO(Connection conn) {
 		super(conn);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean create(InvoiceArticle obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			PreparedStatement state = conn.prepareStatement(" INSERT INTO  inv _art (inv_id,art_id,amount) VALUES  (" +","  + obj.getInvoiceId() +"," +obj.getArticleId() +"," + obj.getAmount() +   ")");
+			int etat  = state.executeUpdate();
+			return etat >0? true :false;
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 	@Override
 	public boolean delete(InvoiceArticle obj) {

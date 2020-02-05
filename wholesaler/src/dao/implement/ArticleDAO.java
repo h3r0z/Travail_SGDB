@@ -19,7 +19,7 @@ public class ArticleDAO extends DAO<Article>{
 	@Override
 	public boolean create(Article obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" INSERT INTO articles VALUES  (" + obj.getName() +","  + obj.isAvailable()+"," + obj.getStock() + ","+  obj.getDescription()+   ")");
+			PreparedStatement state = conn.prepareStatement(" INSERT INTO articles (name,available,stock,description) VALUES  (" + obj.getName() +","  + obj.isAvailable()+"," + obj.getStock() + ","+  obj.getDescription()+   ")");
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;
 		}
@@ -46,7 +46,7 @@ public class ArticleDAO extends DAO<Article>{
 	@Override
 	public boolean update(Article obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE articles SET id = " + obj.getId() + " ,name = " + obj.getName() + 
+			PreparedStatement state = conn.prepareStatement(" UPDATE articles  (id,name,available,stock,description) SET id = " + obj.getId() + " ,name = " + obj.getName() + 
 			",available = " + obj.isAvailable()  +",stock = "  + obj.getStock()+ ", description = " + obj.getDescription() + ")"  );
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;

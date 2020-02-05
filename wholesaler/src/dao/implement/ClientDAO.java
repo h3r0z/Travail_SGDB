@@ -19,7 +19,8 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public boolean create(Client obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" INSERT INTO clients VALUES  (" + obj.getLastname() +","  + obj.getFirstname()+"," + obj.getCountry() + ","+  obj.getCity()+  ","+  obj.getZipCode()+ ","+  obj.getTel() + ","+  obj.getAdress()+   ")");
+			PreparedStatement state = conn.prepareStatement(" INSERT INTO clients (lastname,firstname,country,city,zipcode,tel,adress)  VALUES  (" + obj.getLastname() +","  + obj.getFirstname()+"," + obj.getCountry() + ","+  
+			obj.getCity()+  ","+  obj.getZipCode()+ ","+  obj.getTel() + ","+  obj.getAdress()+   ")");
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;
 		}
@@ -45,7 +46,7 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public boolean update(Client obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE clients SET id = " + obj.getId() + " ,lastname = " + obj.getLastname() + 
+			PreparedStatement state = conn.prepareStatement(" UPDATE clients (id,lastname,firstname,country,city,zipcode,tel,adress) SET id = " + obj.getId() + " ,lastname = " + obj.getLastname() + 
 			",firstname  = " + obj.getFirstname()  +",country = "  + obj.getCountry()+ ",city = " + obj.getCity()  + 
 			",zipcode = " + obj.getZipCode() +  ",tel = " + obj.getTel()+ ",adress = " + obj.getAdress()  +")"  );
 			int etat  = state.executeUpdate();
