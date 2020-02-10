@@ -4,19 +4,35 @@ public class HistoryArticle {
 	private int id;
 	private int article_id;
 	private Date dateHistory;
-	private int clientId;
 	private double price;
+	private int vatId;
 	public HistoryArticle() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public HistoryArticle(int id, int article_id, Date dateHistory, int clientId,double price) {
+	public HistoryArticle(int id, int article_id, Date dateHistory,double price,int vatId) {
 		super();
 		this.id = id;
 		this.article_id = article_id;
 		this.dateHistory = dateHistory;
-		this.clientId = clientId;
 		this.price = price;
+		this.vatId = vatId;
+	}
+
+	public Date getDateHistory() {
+		return dateHistory;
+	}
+
+	public void setDateHistory(Date dateHistory) {
+		this.dateHistory = dateHistory;
+	}
+
+	public int getVatId() {
+		return vatId;
+	}
+
+	public void setVatId(int vatId) {
+		this.vatId = vatId;
 	}
 
 	public double getPrice() {
@@ -39,18 +55,7 @@ public class HistoryArticle {
 	public void setArticle_id(int article_id) {
 		this.article_id = article_id;
 	}
-	public Date getDateHisto() {
-		return dateHistory;
-	}
-	public void setDateHisto(Date dateHisto) {
-		this.dateHistory = dateHisto;
-	}
-	public int getClientId() {
-		return clientId;
-	}
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
-	}
+
 	
 	
 

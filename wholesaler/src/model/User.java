@@ -6,16 +6,25 @@ public class User {
 	private String firstname;
 	private String login;
 	private String password;
-	public User(int id, String lastname, String firstname, String login, String password) {
+	private boolean active;
+	public User(int id, String lastname, String firstname, String login, String password,boolean active) {
 		super();
 		this.id = id;
 		this.lastname = lastname;
 		this.firstname = firstname;
 		this.login = login;
 		this.password = password;
+		this.active = active;
 	}
 	public User() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	public int getId() {
 		return id;

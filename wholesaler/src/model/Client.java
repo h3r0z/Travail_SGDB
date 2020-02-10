@@ -9,10 +9,11 @@ public class Client {
 	private String zipCode;
 	private String tel;
 	private String city;
+	private boolean active;
 
 	
 	public Client(int id, String lastname, String firstname, String adress, String country, String zipCode,
-			String tel,String city) {
+			String tel,String city,boolean active) {
 		super();
 		this.id = id;
 		this.lastname = lastname;
@@ -22,8 +23,17 @@ public class Client {
 		this.zipCode = zipCode;
 		this.tel = tel;
 		this.city = city;
+		this.active = active;
 	}
 	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public String getCity() {
 		return city;
 	}

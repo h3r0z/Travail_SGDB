@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 import dao.DAO;
 import model.InvoiceArticle;
-public class InventoryArticleDAO extends DAO<InvoiceArticle> {
+public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
 	private ArrayList<InvoiceArticle> invoicesArticles;
 
-	public InventoryArticleDAO(Connection conn) {
+	public InvoiceArticleDAO(Connection conn) {
 		super(conn);
 	}
 
@@ -57,13 +57,12 @@ public class InventoryArticleDAO extends DAO<InvoiceArticle> {
 		InvoiceArticle InvoiceArticle = null;
 		try {
 			
-			PreparedStatement state = conn.prepareStatement(" SELECT * FROM articles a WHERE a.id = ?");
+			PreparedStatement state = conn.prepareStatement(" SELECT * FROM inv_art a WHERE a.id = ?");
 			state.setInt(1, id);
 			ResultSet result = state.executeQuery();
 			
 			if(result.first()) {
 				InvoiceArticle = new InvoiceArticle(result.getInt("id"),result.getInt("inv_id"),result.getInt("art_id"),result.getInt("amount"));
-				
 			}
 		} catch (SQLException e) {
 			System.out.println("Probleme de récupération de invoice Article  avec l ídentifiant :  " + id);
@@ -77,7 +76,7 @@ public class InventoryArticleDAO extends DAO<InvoiceArticle> {
 		try {
 			invoicesArticles = new ArrayList<InvoiceArticle>();
 			invoicesArticles =null;
-		PreparedStatement state = conn.prepareStatement(" SELECT * FROM clients");
+		PreparedStatement state = conn.prepareStatement(" SELECT * FROM inv_art");
 		ResultSet result = state.executeQuery();
 		if (result != null) 
 		{

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class BDDConnexion {
-	private String url = "jdbc:mysql://localhost:3306/ecole?autoReconnect=true&useSSL=false";
+	private String url = "jdbc:mysql://localhost:3306/wholesaler?autoReconnect=true&useSSL=false";
 	private String user = "root";
 	private String password = "";
 	private static Connection conn;

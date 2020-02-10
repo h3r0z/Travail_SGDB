@@ -19,8 +19,8 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public boolean create(Client obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" INSERT INTO clients (lastname,firstname,country,city,zipcode,tel,adress)  VALUES  (" + obj.getLastname() +","  + obj.getFirstname()+"," + obj.getCountry() + ","+  
-			obj.getCity()+  ","+  obj.getZipCode()+ ","+  obj.getTel() + ","+  obj.getAdress()+   ")");
+			PreparedStatement state = conn.prepareStatement(" INSERT INTO clients (lastname,firstname,country,city,zipcode,tel,adress,active)  VALUES  (" + obj.getLastname() +","  + obj.getFirstname()+"," + obj.getCountry() + ","+  
+			obj.getCity()+  ","+  obj.getZipCode()+ ","+  obj.getTel() + ","+  obj.getAdress()+ "," + obj.isActive()  +  ")");
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;
 		}
@@ -46,9 +46,9 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public boolean update(Client obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE clients (id,lastname,firstname,country,city,zipcode,tel,adress) SET id = " + obj.getId() + " ,lastname = " + obj.getLastname() + 
+			PreparedStatement state = conn.prepareStatement(" UPDATE clients (id,lastname,firstname,country,city,zipcode,tel,adress,active) SET id = " + obj.getId() + " ,lastname = " + obj.getLastname() + 
 			",firstname  = " + obj.getFirstname()  +",country = "  + obj.getCountry()+ ",city = " + obj.getCity()  + 
-			",zipcode = " + obj.getZipCode() +  ",tel = " + obj.getTel()+ ",adress = " + obj.getAdress()  +")"  );
+			",zipcode = " + obj.getZipCode() +  ",tel = " + obj.getTel()+ ",adress = " + obj.getAdress()  + ",active=" +obj.isActive() +")"  );
 			int etat  = state.executeUpdate();
 			return etat >0? true :false;
 		}
@@ -63,13 +63,13 @@ public class ClientDAO extends DAO<Client>{
 		Client client = null;
 		try {
 			
-			PreparedStatement state = conn.prepareStatement(" SELECT * FROM articles a WHERE a.id = ?");
+			PreparedStatement state = conn.prepareStatement(" SELECT * FROM clients a WHERE a.id = ?");
 			state.setInt(1, id);
 			ResultSet result = state.executeQuery();
 			
 			if(result.first()) {
 				client = new Client(result.getInt(id),result.getString("lastname"),result.getString("firstname"),result.getString("adress"),
-				result.getString("country"),result.getString("zipcode"),result.getString("tel"),result.getString("city"));
+				result.getString("country"),result.getString("zipcode"),result.getString("tel"),result.getString("city"),result.getBoolean("active"));
 				
 			}
 		} catch (SQLException e) {
@@ -90,12 +90,12 @@ public class ClientDAO extends DAO<Client>{
 		{
 		  do {
 			  client = new Client(result.getInt("id"),result.getString("lastname"),result.getString("firstname"),result.getString("adress"),
-			result.getString("country"),result.getString("zipcode"),result.getString("tel"),result.getString("city"));
+			result.getString("country"),result.getString("zipcode"),result.getString("tel"),result.getString("city"),result.getBoolean("active"));
 			  clients.add(client);
 		  }while(result.next());
 		}
 		else {
-			System.out.println("Table articles  is empty");
+			System.out.println("Table Clients  est vide");
 		}
 	} catch (SQLException e) {
 		System.out.println("Problème avec la récupération de la DB " + e);	
