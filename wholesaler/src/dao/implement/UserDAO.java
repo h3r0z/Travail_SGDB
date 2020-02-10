@@ -26,7 +26,19 @@ public class UserDAO extends DAO<User> {
 			return false;
 		}
 	}
-
+	@Override
+	public boolean delete(User obj) {
+		try {
+			PreparedStatement state = conn.prepareStatement(" UPDATE users u (activate) VALUES u.activate = 0 WHERE a.id = ?");
+			int etat  = state.executeUpdate();
+			return etat >0? true :false;
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+/*
 	@Override
 	public boolean delete(User obj) {
 		try {
@@ -39,7 +51,7 @@ public class UserDAO extends DAO<User> {
 			return false;
 		}
 	}
-
+*/
 	@Override
 	public boolean update(User obj) {
 		try {

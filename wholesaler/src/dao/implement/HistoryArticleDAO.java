@@ -79,7 +79,6 @@ public class HistoryArticleDAO extends DAO<HistoryArticle>{
 		ArrayList<HistoryArticle> historyArticles = null;
 		try {
 		historyArticles = new ArrayList<HistoryArticle>();
-		historyArticles = null;
 		PreparedStatement state = conn.prepareStatement(" SELECT * FROM histo_art");
 		ResultSet result = state.executeQuery();
 		if (result != null) 
