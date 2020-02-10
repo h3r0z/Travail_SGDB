@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 10 fév. 2020 à 19:09
+-- Généré le :  lun. 10 fév. 2020 à 19:20
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `zipcode` varchar(255) NOT NULL,
   `tel` varchar(255) NOT NULL,
   `adress` varchar(255) NOT NULL,
-  `active` tinyint(1) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
 
@@ -192,17 +192,19 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   `number` int(11) NOT NULL,
   `date` date NOT NULL,
   `client_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_invoices_clients` (`client_id`)
+  KEY `fk_invoices_clients` (`client_id`),
+  KEY `fk_invoices_users` (`user_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `invoices`
 --
 
-INSERT INTO `invoices` (`id`, `number`, `date`, `client_id`) VALUES
-(1, 1, '2019-10-13', 1),
-(2, 2, '2019-11-17', 1);
+INSERT INTO `invoices` (`id`, `number`, `date`, `client_id`, `user_id`) VALUES
+(1, 1, '2019-10-13', 1, 1),
+(2, 2, '2019-11-17', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -300,7 +302,8 @@ ALTER TABLE `histo_art`
 -- Contraintes pour la table `invoices`
 --
 ALTER TABLE `invoices`
-  ADD CONSTRAINT `fk_invoices_clients` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`);
+  ADD CONSTRAINT `fk_invoices_clients` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
+  ADD CONSTRAINT `fk_invoices_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `inv_art`
