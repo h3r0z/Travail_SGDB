@@ -1,7 +1,5 @@
 package dao.implement;
 import model.Invoice;
-import model.InvoiceArticle;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
