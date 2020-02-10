@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import dao.DAO;
 import model.Client;
 public class ClientDAO extends DAO<Client>{
-	private ArrayList<Client> clients;
+	
 
 	public ClientDAO(Connection conn) {
 		super(conn);
@@ -81,6 +81,7 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public ArrayList<Client> findAll() {
 		Client client = null;
+		ArrayList<Client> clients = null;
 		try {
 		clients = new ArrayList<Client>();
 		clients =null;

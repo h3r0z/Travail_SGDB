@@ -9,8 +9,6 @@ import model.Article;
 
 public class ArticleDAO extends DAO<Article>{
 
-	private ArrayList<Article> articles;
-
 	public ArticleDAO(Connection conn) {
 		super(conn);
 		// TODO Auto-generated constructor stub
@@ -79,6 +77,7 @@ public class ArticleDAO extends DAO<Article>{
 	@Override
 	public ArrayList<Article> findAll() {	
 		Article article = null;
+		ArrayList<Article> articles =null;
 		try {
 		articles = new ArrayList<Article>();
 		articles =null;
@@ -92,7 +91,7 @@ public class ArticleDAO extends DAO<Article>{
 		  }while(result.next());
 		}
 		else {
-			System.out.println("Table articles  is empty");
+			System.out.println("Table article  is empty");
 		}
 	} catch (SQLException e) {
 		System.out.println("Problème avec la récupération de la DB " + e);
