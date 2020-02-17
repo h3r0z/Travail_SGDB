@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import dao.DAO;
 import model.InvoiceArticle;
 public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
-	private ArrayList<InvoiceArticle> invoicesArticles;
 
 	public InvoiceArticleDAO(Connection conn) {
 		super(conn);
@@ -73,9 +72,9 @@ public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
 	@Override
 	public ArrayList<InvoiceArticle> findAll() {
 		InvoiceArticle invoiceArticle = null;
+		ArrayList<InvoiceArticle> invoicesArticles = null;
 		try {
 			invoicesArticles = new ArrayList<InvoiceArticle>();
-			invoicesArticles =null;
 		PreparedStatement state = conn.prepareStatement(" SELECT * FROM inv_art");
 		ResultSet result = state.executeQuery();
 		if (result != null) 

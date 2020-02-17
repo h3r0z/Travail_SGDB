@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import dao.DAO;
 import model.Client;
 public class ClientDAO extends DAO<Client>{
-	private ArrayList<Client> clients;
+	
 
 	public ClientDAO(Connection conn) {
 		super(conn);
@@ -29,7 +29,19 @@ public class ClientDAO extends DAO<Client>{
 			return false;
 		}
 	}
-
+	@Override
+	public boolean delete(Client obj) {
+		try {
+			PreparedStatement state = conn.prepareStatement(" UPDATE  clients c (activate) VALUES c.activate = 0 WHERE c.id = ?");
+			int etat  = state.executeUpdate();
+			return etat >0? true :false;
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+/*
 	@Override
 	public boolean delete(Client obj) {
 		try {
@@ -42,7 +54,7 @@ public class ClientDAO extends DAO<Client>{
 			return false;
 		}
 	}
-
+*/
 	@Override
 	public boolean update(Client obj) {
 		try {
@@ -63,7 +75,7 @@ public class ClientDAO extends DAO<Client>{
 		Client client = null;
 		try {
 			
-			PreparedStatement state = conn.prepareStatement(" SELECT * FROM clients a WHERE a.id = ?");
+			PreparedStatement state = conn.prepareStatement(" SELECT * FROM clients c WHERE c.id = ?");
 			state.setInt(1, id);
 			ResultSet result = state.executeQuery();
 			
@@ -73,7 +85,7 @@ public class ClientDAO extends DAO<Client>{
 				
 			}
 		} catch (SQLException e) {
-			System.out.println("Probleme de récupération du client avec l ídentifiant :  " + id);
+			System.out.println("Probleme de récupération du client avec l'identifiant :  " + id);
 		}
 		return client;
 	}
@@ -81,9 +93,9 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public ArrayList<Client> findAll() {
 		Client client = null;
+		ArrayList<Client> clients = null;
 		try {
 		clients = new ArrayList<Client>();
-		clients =null;
 		PreparedStatement state = conn.prepareStatement(" SELECT * FROM clients");
 		ResultSet result = state.executeQuery();
 		if (result != null) 

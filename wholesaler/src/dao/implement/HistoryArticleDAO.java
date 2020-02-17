@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import dao.DAO;
 import model.HistoryArticle;
 public class HistoryArticleDAO extends DAO<HistoryArticle>{
-	private ArrayList<HistoryArticle> historyArticles;
 
 	public HistoryArticleDAO(Connection conn) {
 		super(conn);
@@ -77,9 +76,9 @@ public class HistoryArticleDAO extends DAO<HistoryArticle>{
 	@Override
 	public ArrayList<HistoryArticle> findAll() {
 		HistoryArticle historyArticle = null;
+		ArrayList<HistoryArticle> historyArticles = null;
 		try {
 		historyArticles = new ArrayList<HistoryArticle>();
-		historyArticles = null;
 		PreparedStatement state = conn.prepareStatement(" SELECT * FROM histo_art");
 		ResultSet result = state.executeQuery();
 		if (result != null) 

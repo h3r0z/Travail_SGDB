@@ -76,8 +76,28 @@ public class InvoiceDAO extends DAO<Invoice>{
 
 	@Override
 	public ArrayList<Invoice> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		Invoice invoice = null;
+		ArrayList<Invoice> invoices = null;
+		try {
+			invoices = new ArrayList<Invoice>();
+		PreparedStatement state = conn.prepareStatement(" SELECT * FROM invoices");
+		ResultSet result = state.executeQuery();
+		if (result != null) 
+		{
+			  do {
+				  invoice = new Invoice(result.getInt("id"),result.getInt("number"),result.getDate("date"),result.getInt("client_Id"),result.getInt("user_Id"));
+				  invoices.add(invoice);
+			  }while(result.next());
+		}		
+			else {
+				System.out.println("Table invoices  est vide");
+			}
+		
+		} catch (SQLException e) {
+			System.out.println("Problème avec la récupération de la DB " + e);	
+		}
+		return invoices;
 	}
+
 
 }

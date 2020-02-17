@@ -9,11 +9,8 @@ import model.Article;
 
 public class ArticleDAO extends DAO<Article>{
 
-	private ArrayList<Article> articles;
-
 	public ArticleDAO(Connection conn) {
 		super(conn);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -29,7 +26,19 @@ public class ArticleDAO extends DAO<Article>{
 		}
 
 	}
-
+	@Override
+	public boolean delete(Article obj) {
+		try {
+			PreparedStatement state = conn.prepareStatement(" UPDATE articles a (available) VALUES a.available = false  WHERE a.id = ?");
+			int etat  = state.executeUpdate();
+			return etat >0? true :false;
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+/*
 	@Override
 	public boolean delete(Article obj) {
 		try {
@@ -42,7 +51,7 @@ public class ArticleDAO extends DAO<Article>{
 			return false;
 		}
 	}
-
+*/
 	@Override
 	public boolean update(Article obj) {
 		try {
@@ -79,9 +88,9 @@ public class ArticleDAO extends DAO<Article>{
 	@Override
 	public ArrayList<Article> findAll() {	
 		Article article = null;
+		ArrayList<Article> articles =null;
 		try {
 		articles = new ArrayList<Article>();
-		articles =null;
 		PreparedStatement state = conn.prepareStatement(" SELECT * FROM articles");
 		ResultSet result = state.executeQuery();
 		if (result != null) 
@@ -92,7 +101,7 @@ public class ArticleDAO extends DAO<Article>{
 		  }while(result.next());
 		}
 		else {
-			System.out.println("Table articles  is empty");
+			System.out.println("Table article  is empty");
 		}
 	} catch (SQLException e) {
 		System.out.println("Problème avec la récupération de la DB " + e);
