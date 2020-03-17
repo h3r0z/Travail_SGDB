@@ -8,12 +8,20 @@ public class Article {
 	private int stock;
 	private String description;
 	public Article(int id, String name, boolean available, int stock, String description) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.available = available;
 		this.stock = stock;
 		this.description = description;
+	}
+	public Article( String name, boolean available, int stock, String description) {
+		this.name = name;
+		this.available = available;
+		this.stock = stock;
+		this.description = description;
+	}
+	public Article(int id) {
+		this.id = id;
 	}
 	public Article() {
 		// TODO Auto-generated constructor stub

@@ -16,6 +16,18 @@ public class User {
 		this.password = password;
 		this.active = active;
 	}
+	public User( String lastname, String firstname, String login, String password,boolean active) {
+		super();
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.login = login;
+		this.password = password;
+		this.active = active;
+	}
+	public User(int id) {
+		super();
+		this.id = id;
+	}
 	public User() {
 		// TODO Auto-generated constructor stub
 	}

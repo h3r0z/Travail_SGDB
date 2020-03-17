@@ -1,16 +1,19 @@
 package model;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 public class HistoryArticle {
 	private int id;
 	private int article_id;
-	private Date dateHistory;
+	private String dateHistory;
 	private double price;
 	private int vatId;
+	//private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	public HistoryArticle() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public HistoryArticle(int id, int article_id, Date dateHistory,double price,int vatId) {
+	public HistoryArticle(int id, int article_id, String dateHistory,double price,int vatId) {
 		super();
 		this.id = id;
 		this.article_id = article_id;
@@ -18,12 +21,21 @@ public class HistoryArticle {
 		this.price = price;
 		this.vatId = vatId;
 	}
+	public HistoryArticle(int article_id, String dateHistory,double price,int vatId) {
+		super();
+		this.article_id = article_id;
+		this.dateHistory = dateHistory;
+		this.price = price;
+		this.vatId = vatId;
+	}
 
-	public Date getDateHistory() {
+
+
+	public String getDateHistory() {
 		return dateHistory;
 	}
 
-	public void setDateHistory(Date dateHistory) {
+	public void setDateHistory(String dateHistory) {
 		this.dateHistory = dateHistory;
 	}
 

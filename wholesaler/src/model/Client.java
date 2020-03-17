@@ -25,6 +25,21 @@ public class Client {
 		this.city = city;
 		this.active = active;
 	}
+	public Client( String lastname, String firstname, String adress, String country, String zipCode,
+			String tel,String city,boolean active) {
+		super();
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.adress = adress;
+		this.country = country;
+		this.zipCode = zipCode;
+		this.tel = tel;
+		this.city = city;
+		this.active = active;
+	}
+	public Client(int id) {
+		this.id=id;
+	}
 	
 	public boolean isActive() {
 		return active;

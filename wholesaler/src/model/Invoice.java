@@ -1,20 +1,31 @@
 package model;
 
-import java.sql.Date;
 
 public class Invoice {
 	private int id;
 	private int number;
-	private Date dateInvoice;
+	private String dateInvoice;
 	private int clientId;
 	private int userId;
-	public Invoice(int id, int number, Date dateInvoice, int clientId,int userId) {
+	public Invoice(int id, int number, String dateInvoice, int clientId,int userId) {
 		super();
 		this.id = id;
 		this.number = number;
 		this.dateInvoice = dateInvoice;
 		this.clientId = clientId;
 		this.userId = userId;
+	}
+	public Invoice(int number, String dateInvoice, int clientId,int userId) {
+		super();
+		this.number = number;
+		this.dateInvoice = dateInvoice;
+		this.clientId = clientId;
+		this.userId = userId;
+	}
+	public Invoice(int id) {
+		super();
+		this.id = id;
+		
 	}
 	public Invoice() {
 		// TODO Auto-generated constructor stub
@@ -38,10 +49,10 @@ public class Invoice {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public Date getDateInvoice() {
+	public String getDateInvoice() {
 		return dateInvoice;
 	}
-	public void setDateInvoice(Date dateInvoice) {
+	public void setDateInvoice(String dateInvoice) {
 		this.dateInvoice = dateInvoice;
 	}
 	public int getClientId() {

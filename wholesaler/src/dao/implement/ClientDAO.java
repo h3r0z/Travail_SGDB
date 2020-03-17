@@ -15,7 +15,46 @@ public class ClientDAO extends DAO<Client>{
 		super(conn);
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public boolean create(Client obj) {
+		int newId=0;
+		try {
+			conn.setAutoCommit(false);
+			PreparedStatement stateSelect = conn.prepareStatement("SELECT MAX(id) from clients");
+			ResultSet resultSelect = stateSelect.executeQuery();
+			if(resultSelect.next() ==true) {
+				newId = resultSelect.getInt(1)+1;
+				obj.setId(newId);
+				PreparedStatement stateInsert = conn.prepareStatement(" INSERT INTO clients (id,lastname,firstname,country,city,zipcode,tel,adress,active)  VALUES  (" +obj.getId() + ",'" +  obj.getLastname() +"','"  + obj.getFirstname()+"','" + obj.getCountry() + "','"+  
+						obj.getCity()+  "','"+  obj.getZipCode()+ "','"+  obj.getTel() + "','"+  obj.getAdress()+ "'," + obj.isActive()  +  ")");
+				stateSelect.close();
+				resultSelect.close();
+				stateInsert.executeUpdate();
+				stateInsert.close();
+				conn.commit();
+				conn.setAutoCommit(true);
+				System.out.println("Le client " + obj.getFirstname() + " a été crée ");
+				return true;
+			}
+			else {
+				obj.setId(1);
+				PreparedStatement stateInsert = conn.prepareStatement(" INSERT INTO clients (id,lastname,firstname,country,city,zipcode,tel,adress,active)  VALUES  (" +obj.getId() + ",'" +  obj.getLastname() +"','"  + obj.getFirstname()+"','" + obj.getCountry() + "','"+  
+						obj.getCity()+  "','"+  obj.getZipCode()+ "','"+  obj.getTel() + "','"+  obj.getAdress()+ "'," + obj.isActive()  +  ")");
+				
+				stateInsert.executeUpdate();
+				stateInsert.close();
+				conn.commit();
+				conn.setAutoCommit(true);
+				System.out.println("Le client " + obj.getFirstname() + " a été crée ");
+				return true;
+			}
+		}catch(SQLException e ) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 
+	/*
 	@Override
 	public boolean create(Client obj) {
 		try {
@@ -29,11 +68,14 @@ public class ClientDAO extends DAO<Client>{
 			return false;
 		}
 	}
+	*/
 	@Override
 	public boolean delete(Client obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE  clients c (activate) VALUES c.activate = 0 WHERE c.id = ?");
+			PreparedStatement state = conn.prepareStatement(" UPDATE  clients  SET active = false WHERE id = ?");
+			state.setInt(1, obj.getId());
 			int etat  = state.executeUpdate();
+			System.out.println("Le client  avec l id " + obj.getId() + " " +" a été supprimé" );
 			return etat >0? true :false;
 		}
 		catch (SQLException e) {
@@ -58,10 +100,11 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public boolean update(Client obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE clients (id,lastname,firstname,country,city,zipcode,tel,adress,active) SET id = " + obj.getId() + " ,lastname = " + obj.getLastname() + 
-			",firstname  = " + obj.getFirstname()  +",country = "  + obj.getCountry()+ ",city = " + obj.getCity()  + 
-			",zipcode = " + obj.getZipCode() +  ",tel = " + obj.getTel()+ ",adress = " + obj.getAdress()  + ",active=" +obj.isActive() +")"  );
+			PreparedStatement state = conn.prepareStatement(" UPDATE clients SET lastname = '" + obj.getLastname() + 
+			"',firstname  = '" + obj.getFirstname()  +"',country = '"  + obj.getCountry()+ "',city = '" + obj.getCity()  + 
+			"',zipcode = '" + obj.getZipCode() +  "',tel = '" + obj.getTel()+ "',adress = '" + obj.getAdress()  + "',active= " +obj.isActive() +"  WHERE id = " + obj.getId()  );
 			int etat  = state.executeUpdate();
+			System.out.println("Le client avec l id "  +obj.getId() +  " a été bien modifier");
 			return etat >0? true :false;
 		}
 		catch (SQLException e) {
@@ -79,9 +122,10 @@ public class ClientDAO extends DAO<Client>{
 			state.setInt(1, id);
 			ResultSet result = state.executeQuery();
 			
-			if(result.first()) {
-				client = new Client(result.getInt(id),result.getString("lastname"),result.getString("firstname"),result.getString("adress"),
+			if(result.next()) {
+				client = new Client(result.getInt("id"),result.getString("lastname"),result.getString("firstname"),result.getString("adress"),
 				result.getString("country"),result.getString("zipcode"),result.getString("tel"),result.getString("city"),result.getBoolean("active"));
+				return client;
 				
 			}
 		} catch (SQLException e) {
@@ -100,11 +144,11 @@ public class ClientDAO extends DAO<Client>{
 		ResultSet result = state.executeQuery();
 		if (result != null) 
 		{
-		  do {
-			  client = new Client(result.getInt("id"),result.getString("lastname"),result.getString("firstname"),result.getString("adress"),
-			result.getString("country"),result.getString("zipcode"),result.getString("tel"),result.getString("city"),result.getBoolean("active"));
-			  clients.add(client);
-		  }while(result.next());
+			while(result.next()) {
+				client = new Client(result.getInt("id"),result.getString("lastname"),result.getString("firstname"),result.getString("adress"),
+				result.getString("country"),result.getString("zipcode"),result.getString("tel"),result.getString("city"),result.getBoolean("active"));
+				clients.add(client);
+			}
 		}
 		else {
 			System.out.println("Table Clients  est vide");

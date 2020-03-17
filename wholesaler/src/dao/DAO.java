@@ -22,6 +22,7 @@ public abstract class DAO<T> {
 	
 	public abstract boolean create(T obj);
 	
+	
 	/**
 	 * Méthode pour effacer
 	 * @param obj : l'objet à supprimer dans la BDD
