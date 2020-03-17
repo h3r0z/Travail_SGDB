@@ -132,7 +132,9 @@ public class Test {
 		}
 		*/
 		DAO<InvoiceArticle> invArtDao = new InvoiceArticleDAO(BDDConnexion.getInstance());
-		InvoiceArticle invArt1 = new InvoiceArticle(1,1,1,255);
+		InvoiceArticle invArt1 = new InvoiceArticle(1,2,5,255);
+		InvoiceArticle invArt2 = new InvoiceArticle(1);
+
 		invArtDao.create(invArt1);		
 	}
 }

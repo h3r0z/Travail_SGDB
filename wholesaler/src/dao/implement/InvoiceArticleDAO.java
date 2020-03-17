@@ -66,7 +66,7 @@ public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
 			stateInit.close();
 			conn.commit();
 			conn.setAutoCommit(true);
-			System.out.println("Le vat  avec l id : " + obj.getId() + " a été supprimé");
+			System.out.println("L invoice article   avec l id : " + obj.getId() + " a été supprimé");
 			return etat >0? true :false;
 		}
 		catch (SQLException e) {
