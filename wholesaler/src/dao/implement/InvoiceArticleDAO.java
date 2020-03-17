@@ -15,10 +15,36 @@ public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
 
 	@Override
 	public boolean create(InvoiceArticle obj) {
+		int newId;
+	
 		try {
-			PreparedStatement state = conn.prepareStatement(" INSERT INTO  inv _art (inv_id,art_id,amount) VALUES  ("   + obj.getInvoiceId() +"," +obj.getArticleId() +"," + obj.getAmount() +   ")");
-			int etat  = state.executeUpdate();
-			return etat >0? true :false;
+			conn.setAutoCommit(false);
+			PreparedStatement stateSelect = conn.prepareStatement(" SELECT MAX(id) from inv_art" );
+			ResultSet resultSelect  = stateSelect.executeQuery();
+			if(resultSelect.next() ==true) {
+				newId = resultSelect.getInt(1)+1;
+				System.out.println("Le dernier index de la table inv_art  "   + (newId-1) );
+				obj.setId(newId);
+				stateSelect.close();
+				resultSelect.close();
+				PreparedStatement stateInsert = conn.prepareStatement(" INSERT INTO  inv_art (inv_id,art_id,amount) VALUES  ("   + obj.getInvoiceId() +"," +obj.getArticleId() +"," + obj.getAmount() +   ")");
+				stateInsert.executeUpdate();
+				stateInsert.close();
+				conn.commit();
+				conn.setAutoCommit(true);
+				System.out.println("L invoice article  avec l'id :  " + obj.getId() +  " a bien été créer");
+				return true;
+			}
+			else {
+				obj.setId(1);
+				PreparedStatement stateInsert = conn.prepareStatement(" INSERT INTO  inv_art (inv_id,art_id,amount) VALUES  ("   + obj.getInvoiceId() +"," +obj.getArticleId() +"," + obj.getAmount() +   ")");				
+				stateInsert.executeUpdate();
+				stateInsert.close();
+				conn.commit();
+				conn.setAutoCommit(true);
+				System.out.println("L'invoice article  avec l'id :  " + obj.getId() +  " a bien été créer");
+				return true;
+			}
 		}
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -28,8 +54,19 @@ public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
 	@Override
 	public boolean delete(InvoiceArticle obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" DELETE FROM inv_art a WHERE a.id = ?");
-			int etat  = state.executeUpdate();
+			conn.setAutoCommit(false);
+			PreparedStatement stateDisable = conn.prepareStatement(" SET foreign_key_checks = 0" );
+			int etat = stateDisable.executeUpdate();
+			stateDisable.close();
+			PreparedStatement state = conn.prepareStatement(" DELETE FROM inv_art  WHERE id = "+obj.getId());
+			etat  = state.executeUpdate();
+			state.close();
+			PreparedStatement stateInit = conn.prepareStatement("SET foreign_key_checks = 1" );
+			etat = stateInit.executeUpdate();
+			stateInit.close();
+			conn.commit();
+			conn.setAutoCommit(true);
+			System.out.println("Le vat  avec l id : " + obj.getId() + " a été supprimé");
 			return etat >0? true :false;
 		}
 		catch (SQLException e) {
@@ -41,8 +78,10 @@ public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
 	@Override
 	public boolean update(InvoiceArticle obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE  inv _art (id,inv_id,art_id,amount)  VALUES  (" + obj.getId()+","  + obj.getInvoiceId() +"," +obj.getArticleId() +"," + obj.getAmount() +   ")");
+			PreparedStatement state = conn.prepareStatement(" UPDATE  inv _art SET inv_id = " +  obj.getInvoiceId() +", art_id = " +obj.getArticleId() +", amount = " + obj.getAmount()  + " WHERE id = ? ");
+			state.setInt(1, obj.getId());
 			int etat  = state.executeUpdate();
+			System.out.println("L invoice article avec l id " + obj.getId() + " a bien été modifié");
 			return etat >0? true :false;
 		}
 		catch (SQLException e) {
@@ -79,13 +118,13 @@ public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
 		ResultSet result = state.executeQuery();
 		if (result != null) 
 		{
-			  do {
+			while(result.next()) {
 				  invoiceArticle =  new InvoiceArticle(result.getInt("id"),result.getInt("inv_id"),result.getInt("art_id"),result.getInt("amount"));
 					invoicesArticles.add(invoiceArticle);
-			  }while(result.next());
+			  }
 		}		
 			else {
-				System.out.println("Table articles  is empty");
+				System.out.println("Table invoice  articles  is empty");
 			}
 		
 		} catch (SQLException e) {

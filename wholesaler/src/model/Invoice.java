@@ -1,6 +1,4 @@
 package model;
-
-
 public class Invoice {
 	private int id;
 	private int number;
@@ -25,12 +23,10 @@ public class Invoice {
 	public Invoice(int id) {
 		super();
 		this.id = id;
-		
 	}
 	public Invoice() {
 		// TODO Auto-generated constructor stub
 	}
-	
 	public int getUserId() {
 		return userId;
 	}

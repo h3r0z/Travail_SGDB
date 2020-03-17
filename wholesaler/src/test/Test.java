@@ -8,13 +8,17 @@ import dao.DAO;
 import dao.implement.ArticleDAO;
 import dao.implement.ClientDAO;
 import dao.implement.HistoryArticleDAO;
+import dao.implement.InvoiceArticleDAO;
 import dao.implement.InvoiceDAO;
 import dao.implement.UserDAO;
+import dao.implement.VatDAO;
 import model.Article;
 import model.Client;
 import model.HistoryArticle;
 import model.Invoice;
+import model.InvoiceArticle;
 import model.User;
+import model.Vat;
 import singleton.BDDConnexion;
 
 public class Test {
@@ -97,6 +101,7 @@ public class Test {
 			
 		}
 		*/
+		/*
 		DAO<User> userDao = new UserDAO(BDDConnexion.getInstance());
 		User user1 = new User(1,"fsfsgre","fsrgrg","fwwrgg","fe#grdsg@fwte",true);
 		//userDao.create(user1);
@@ -108,11 +113,26 @@ public class Test {
 		while (cptUser.hasNext()) {
 			User userTmp = cptUser.next();
 			System.out.println(userTmp.getId());
-			
 		}
-		
-		
-		
+		*/
+		DAO<Vat> vatDao = new VatDAO(BDDConnexion.getInstance());
+		Vat vat1 = new Vat(1,21.00);
+		Vat vat2 = new Vat(5);
+//		vatDao.create(vat1);
+//		vatDao.delete(vat2);
+	//	vatDao.update(vat1);
+		/*
+		System.out.println(vatDao.find(3).getRate());
+		ArrayList<Vat> vats;
+		vats = vatDao.findAll();
+		Iterator<Vat> cptVat = vats.iterator();
+		while (cptVat.hasNext()) {
+			Vat vatTmp = cptVat.next();
+			System.out.println(vatTmp.getId());
+		}
+		*/
+		DAO<InvoiceArticle> invArtDao = new InvoiceArticleDAO(BDDConnexion.getInstance());
+		InvoiceArticle invArt1 = new InvoiceArticle(1,1,1,255);
+		invArtDao.create(invArt1);		
 	}
-
 }

@@ -9,6 +9,10 @@ public class Vat {
 		this.id = id;
 		this.rate = rate;
 	}
+	public Vat(int id ) {
+		super();
+		this.id = id;
+	}
 	public Vat() {
 		// TODO Auto-generated constructor stub
 	}

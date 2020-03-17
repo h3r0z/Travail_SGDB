@@ -15,10 +15,36 @@ public class VatDAO extends DAO<Vat>{
 
 	@Override
 	public boolean create(Vat obj) {
+		int newId;
 		try {
-			PreparedStatement state = conn.prepareStatement(" INSERT INTO  vat (id,rate) VALUES  (" + obj.getId() + "," + obj.getRate() + ")");
-			int etat  = state.executeUpdate();
-			return etat >0? true :false;
+			conn.setAutoCommit(false);
+			PreparedStatement stateSelect = conn.prepareStatement(" SELECT MAX(id) from vat" );
+			ResultSet resultSelect  = stateSelect.executeQuery();
+			if(resultSelect.next() ==true) {
+				newId = resultSelect.getInt(1)+1;
+				System.out.println("Le dernier index de la table vat est   "   + (newId-1) );
+				obj.setId(newId);
+				stateSelect.close();
+				resultSelect.close();
+				PreparedStatement stateInsert = conn.prepareStatement(" INSERT INTO  vat (id,rate) VALUES  (" + obj.getId() + "," + obj.getRate() + ")");				
+				stateInsert.executeUpdate();
+				stateInsert.close();
+				conn.commit();
+				conn.setAutoCommit(true);
+				System.out.println("Le vat  avec l'id :  " + obj.getId() +  " a bien été créer");
+				return true;
+			
+			}
+			else {
+				obj.setId(1);
+				PreparedStatement stateInsert = conn.prepareStatement(" INSERT INTO  vat (id,rate) VALUES  (" + obj.getId() + "," + obj.getRate() + ")");				
+				stateInsert.executeUpdate();
+				stateInsert.close();
+				conn.commit();
+				conn.setAutoCommit(true);
+				System.out.println("Le vat   avec l'id :  " + obj.getId() +  " a bien été créer");
+				return true;
+			}
 		}
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -29,8 +55,19 @@ public class VatDAO extends DAO<Vat>{
 	@Override
 	public boolean delete(Vat obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" DELETE FROM vat a WHERE a.id = ?");
-			int etat  = state.executeUpdate();
+			conn.setAutoCommit(false);
+			PreparedStatement stateDisable = conn.prepareStatement(" SET foreign_key_checks = 0" );
+			int etat = stateDisable.executeUpdate();
+			stateDisable.close();
+			PreparedStatement state = conn.prepareStatement(" DELETE FROM vat  WHERE id = "+obj.getId());
+			etat  = state.executeUpdate();
+			state.close();
+			PreparedStatement stateInit = conn.prepareStatement("SET foreign_key_checks = 1" );
+			etat = stateInit.executeUpdate();
+			stateInit.close();
+			conn.commit();
+			conn.setAutoCommit(true);
+			System.out.println("Le vat  avec l id : " + obj.getId() + " a été supprimé");
 			return etat >0? true :false;
 		}
 		catch (SQLException e) {
@@ -42,8 +79,11 @@ public class VatDAO extends DAO<Vat>{
 	@Override
 	public boolean update(Vat obj) {
 		try {
-			PreparedStatement state = conn.prepareStatement(" UPDATE  vat(id,rate) VALUES (" + obj.getId() + "," + obj.getRate() + ")");
+			PreparedStatement state = conn.prepareStatement(" UPDATE  vat SET rate = "+ obj.getRate() + " WHERE id = ? || rate = ? ");
+			state.setInt(1 , obj.getId());
+			state.setDouble(2, obj.getRate());
 			int etat  = state.executeUpdate();
+			System.out.println("Le vat est mise à jour avec l id " + obj.getId());
 			return etat >0? true :false;
 		}
 		catch (SQLException e) {
@@ -65,7 +105,7 @@ public class VatDAO extends DAO<Vat>{
 				vat = new Vat(result.getInt("id"),result.getDouble("rate"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Probleme de récupération de invoice Article  avec l ídentifiant :  " + id);
+			System.out.println("Probleme de récupération de vat  avec l'identifiant :  " + id);
 		}
 		return vat;
 	}
@@ -79,10 +119,10 @@ public class VatDAO extends DAO<Vat>{
 		ResultSet result = state.executeQuery();
 		if (result != null) 
 		{
-			  do {
+			  while(result.next()) {
 					vat = new Vat(result.getInt("id"),result.getDouble("rate"));
 					vats.add(vat);
-			  }while(result.next());
+			  }
 		}		
 			else {
 				System.out.println("Table vat  is empty");

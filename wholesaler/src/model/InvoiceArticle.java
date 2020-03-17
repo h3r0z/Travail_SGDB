@@ -12,6 +12,10 @@ public class InvoiceArticle {
 		this.articleId = articleId;
 		this.amount = amount;
 	}
+	public InvoiceArticle(int id) {
+		super();
+		this.id = id;
+	}
 	public InvoiceArticle() {
 		// TODO Auto-generated constructor stub
 	}

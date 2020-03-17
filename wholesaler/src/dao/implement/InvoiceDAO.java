@@ -92,7 +92,6 @@ public class InvoiceDAO extends DAO<Invoice>{
 			return false;
 		}
 	}
-
 	@Override
 	public boolean update(Invoice obj) {
 		try {
@@ -107,7 +106,6 @@ public class InvoiceDAO extends DAO<Invoice>{
 			return false;
 		}
 	}
-
 	@Override
 	public Invoice find(int id) {
 		Invoice invoice = null;
