@@ -159,6 +159,32 @@ public class ArticleDAO extends DAO<Article>{
 	return articles;
 	}
 	
+	public ArrayList<Article> findAllWithoutFalse() {	
+		Article article = null;
+		ArrayList<Article> articles =null;
+		try {
+		articles = new ArrayList<Article>();
+		PreparedStatement state = conn.prepareStatement(" SELECT * FROM articles WHERE available = 1");
+		ResultSet result = state.executeQuery();
+		if (result != null) 
+		{
+			
+		  while (result.next()) {
+			  article = new Article(result.getInt("id"), result.getString("name"), result.getBoolean("available"), result.getInt("stock"), result.getString("description"));
+			  articles.add(article);
+		  }  
+		  System.out.println("L'arraylist articles est créé");
+		}
+		else {
+			System.out.println("Table article  is empty");
+		}
+	} catch (SQLException e) {
+		System.out.println("Problème avec la récupération de la DB " + e);
+		
+	}
+	return articles;
+	}
+	
 
 }
 

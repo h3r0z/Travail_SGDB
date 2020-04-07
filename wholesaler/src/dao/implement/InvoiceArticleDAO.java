@@ -132,5 +132,6 @@ public class InvoiceArticleDAO extends DAO<InvoiceArticle> {
 		}
 		return invoicesArticles;
 	}
+	
 
 }

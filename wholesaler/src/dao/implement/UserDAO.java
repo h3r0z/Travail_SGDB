@@ -148,6 +148,30 @@ public class UserDAO extends DAO<User> {
 		}
 		return users;
 	}
+	public ArrayList<User> findAllWithoutFalse() {
+		User user = null;
+		ArrayList<User> users =null;
+		try {
+			users = new ArrayList<User>();
+		PreparedStatement state = conn.prepareStatement(" SELECT * FROM users WHERE activate = 1");
+		ResultSet result = state.executeQuery();
+		if (result != null) 
+		{
+			while(result.next()) {
+					user = new User(result.getInt("id"),result.getString("lastname"),result.getString("firstname"),result.getString("login"),result.getString("password"),result.getBoolean("activate"));
+					users.add(user);
+			}
+		}		
+			else {
+				System.out.println("Table users  is empty");
+			}
+		
+		} catch (SQLException e) {
+			System.out.println("Problème avec la récupération de la DB " + e);	
+		}
+		return users;
+	}
+
 
 
 
