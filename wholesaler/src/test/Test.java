@@ -1,29 +1,15 @@
 package test;
-
+import views.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import dao.DAO;
-import dao.implement.ArticleDAO;
-import dao.implement.ClientDAO;
-import dao.implement.HistoryArticleDAO;
-import dao.implement.InvoiceArticleDAO;
-import dao.implement.InvoiceDAO;
-import dao.implement.UserDAO;
-import dao.implement.VatDAO;
-import model.Article;
-import model.Client;
-import model.HistoryArticle;
-import model.Invoice;
-import model.InvoiceArticle;
-import model.User;
-import model.Vat;
-import singleton.BDDConnexion;
+import dao.*;
+import model.*;
 
 public class Test {
 
 	public static void main(String[] args) {
+		/*
 		DAO<Article> articleDao =  new ArticleDAO(BDDConnexion.getInstance());
 		//Article delArticle = new Article(120);
 		//boolean articletmp = articleDao.delete(delArticle);
@@ -62,7 +48,7 @@ public class Test {
 		Client clientTmp2;
 		clientTmp2 = clientDao.find(2);
 		System.out.println(clientTmp2.getFirstname());
-		*/
+		*
 		DAO<HistoryArticle> histoDao = new HistoryArticleDAO(BDDConnexion.getInstance());
 		String date1 ;
 		date1 = "2020-03-01";
@@ -114,7 +100,7 @@ public class Test {
 			User userTmp = cptUser.next();
 			System.out.println(userTmp.getId());
 		}
-		*/
+		*
 		DAO<Vat> vatDao = new VatDAO(BDDConnexion.getInstance());
 		Vat vat1 = new Vat(1,21.00);
 		Vat vat2 = new Vat(5);
@@ -130,11 +116,19 @@ public class Test {
 			Vat vatTmp = cptVat.next();
 			System.out.println(vatTmp.getId());
 		}
-		*/
+		*
 		DAO<InvoiceArticle> invArtDao = new InvoiceArticleDAO(BDDConnexion.getInstance());
 		InvoiceArticle invArt1 = new InvoiceArticle(1,2,5,255);
 		InvoiceArticle invArt2 = new InvoiceArticle(1);
 
-		invArtDao.create(invArt1);		
+		invArtDao.create(invArt1);
+		*/
+		//ArticlesManagementView viewTest = new ArticlesManagementView();
+		//ClientsManagementView viewTest = new ClientsManagementView();
+		//HomeView viewTest = new HomeView();
+		LoginView viewTest = new LoginView();
+		viewTest.run();
+		
+		
 	}
 }
